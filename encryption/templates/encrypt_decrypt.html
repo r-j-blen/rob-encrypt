@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Message Encryption and Decryption</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Message Encryption and Decryption</h1>
+    
+    <form method="POST" action="/encrypt">
+        <label for="message">Enter your message to encrypt:</label>
+        <input type="text" id="message" name="message" required>
+        <button type="submit">Encrypt</button>
+    </form>
+
+    <form method="POST" action="/decrypt">
+        <label for="encrypted_message">Enter the encrypted message:</label>
+        <input type="text" id="encrypted_message" name="encrypted_message" required>
+        <button type="submit">Decrypt</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="message">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if encrypted_message %}
+        <p class="result">Encrypted Message: {{ encrypted_message }}</p>
+    {% endif %}
+
+    {% if decrypted_message %}
+        <p class="result">Decrypted Message: {{ decrypted_message }}</p>
+    {% endif %}
+</body>
+</html>
